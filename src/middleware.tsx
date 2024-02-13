@@ -19,7 +19,6 @@ export function middleware(request: NextRequest) {
                 return NextResponse.redirect(new URL('/', request.url));
         }
     } else {
-        request.cookies.set('loggedIn', 'false');
         return NextResponse.next()
     }
 }
