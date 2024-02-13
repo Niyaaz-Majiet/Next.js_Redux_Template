@@ -7,7 +7,7 @@ import styles from './dashboard.module.css'
 
 const DashboardPage = (): JSX.Element => {
     const router = useRouter()
-    const noteStore = useAppSelector(selectNotes);
+    const notesData = useAppSelector(selectNotes);
     const dispatch = useAppDispatch();
   
     const deleteNote = (noteId: string) => {
@@ -15,7 +15,7 @@ const DashboardPage = (): JSX.Element => {
     }
   
     return <div>
-      {noteStore.notes.map((note) => {
+      {notesData.notes.map((note) => {
         return <div key={note.id}>
           <h1>{note.heading}</h1>
           <p>{note.content}</p>
