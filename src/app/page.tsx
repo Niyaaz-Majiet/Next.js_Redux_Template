@@ -1,20 +1,20 @@
 'use client';
 import styles from './page.module.css';
-import { useAppDispatch } from "../redux/hooks";
-import { loginUser } from '@/redux/slices/auth_slice';
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { getAuthState, loginUser } from '@/redux/slices/auth_slice';
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react';
-import { getCookie } from 'cookies-next';
 
 const HomePage = (): JSX.Element => {
   const router = useRouter()
+  const authState = useAppSelector(getAuthState);
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
-   const isLoggedIn = getCookie('loggedIn');
-   if(isLoggedIn == 'true'){
+  const isLoggedIn = authState.isLoggedIn;
+  if(isLoggedIn){
     router.push('/dashboard');
-   }
+  }
   },[])
 
   const user = {
@@ -28,14 +28,14 @@ const HomePage = (): JSX.Element => {
         htmlFor='username'
       >
         Username:
-        <input id='username' />
+        <input id='username' autoComplete='true'/>
       </label>
 
       <label
         htmlFor='password'
       >
         Password:
-        <input id='password' />
+        <input id='password' autoComplete='true'/>
       </label>
 
       <button onClick={() => dispatch(loginUser(user)).then(()=> router.push('/dashboard'))}>Login</button>

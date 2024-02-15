@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import storage from 'redux-persist/lib/storage'
+import { persistReducer } from 'redux-persist';
+
+const persistConfig = {
+  key: "counter",
+  storage: storage,
+};
 
 const counterSlice = createSlice({
     name: 'counter',
@@ -15,4 +22,4 @@ const counterSlice = createSlice({
 
   export const getCount = (state: RootState) => state.counter;
 
-  export default counterSlice.reducer;
+  export default persistReducer(persistConfig, counterSlice.reducer);

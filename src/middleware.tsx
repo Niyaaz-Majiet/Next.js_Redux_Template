@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
     if (request.cookies.get('loggedIn')?.value) {
-        const isLoggedIn = String(request.cookies.get('loggedIn')?.value);
+        const isLoggedIn = request.cookies.get('loggedIn')?.value;
 
         switch (isLoggedIn) {
             case 'true':

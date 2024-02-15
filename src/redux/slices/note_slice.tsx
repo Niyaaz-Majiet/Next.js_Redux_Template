@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "../store"
+import storage from 'redux-persist/lib/storage'
+import { persistReducer } from 'redux-persist';
+
+const persistConfig = {
+  key: "notes",
+  storage: storage,
+};
 
 type Note = {
     id: string;
@@ -38,4 +45,4 @@ export const { addNote, removeNote } = noteSlice.actions
 
 export const selectNotes = (state: RootState) => state.notes;
 
-export default noteSlice.reducer
+export default persistReducer(persistConfig,noteSlice.reducer);
